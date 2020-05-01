@@ -1,5 +1,7 @@
 import requests
 import json
+import sys
+
 
 class Requests:
     def __init__(self, token):
@@ -9,10 +11,9 @@ class Requests:
     def get(self):
         response = requests.get(self._base_url_get).json()
         return response
-    
-    def post(self):
-        files = [('answer', open('answer.json','rb'))]
-        response = requests.request("POST", self._base_url_post, files = files)
-        response = json.dumps(response.text)
-        return response
 
+    def post(self):
+        files = [('answer', open('answer.json', 'rb'))]
+        response = requests.post(self._base_url_post, files=files)
+        response = response.text.encode('utf8')
+        return response
